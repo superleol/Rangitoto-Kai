@@ -1,7 +1,9 @@
+import os
 cost_of_budget_menu_options = 6
 cost_of_premium_menu_options = 9
 
 def main():
+  reset_programme()
   print("Welcome to Rangitoto Kai.")
   #asks the user to input their name
   name = input("Please enter your name: ")
@@ -14,6 +16,12 @@ def main():
 
 
   choose_food()
+
+def reset_programme():
+  os.remove("customer_info.txt")
+  os.remove("ordered_items.txt")
+  f = open("customer_info.txt","w")
+  f2 = open("ordered_items.txt","w")
 
 def thank_you_msg():
   print("Thank you")
@@ -43,7 +51,7 @@ def print_receipt():
   #closes the file
   f.close()
 
-  cancel_option = input("Do you want to cancel this order")
+  cancel_option = input("Do you want to cancel this order: ")
   if cancel_option == "yes" or cancel_option == "y":
     print("Ok, sure")
     main()
@@ -63,30 +71,65 @@ def order_pickup():
   else:
     order_pickup()
 
+def delete_info():
+  with open(r"ordered_items.txt")as fp:
+   #checks how much line are in the text file
+   x = len(fp.readlines())
+
+   with open('ordered_items.txt','r') as fr:
+    # reads the file line by line
+    lines = fr.readlines()
+    #pointer for position
+    ptr = 1
+    #opening file in writing mode
+    with open('ordered_items.txt','w') as fw:
+     for line in lines:
+       #removes the 3rd line
+       if ptr != x:
+         fw.write(line)
+       ptr +=1
+    print("Sorry, we cannot deliver to that postcode.")
+    rangitoto_uber()
+
+
+
 def rangitoto_uber():
   post_code = input("Please enter your post code: ")
   #checks if post code entered is 0632, 0620 or 0630
   if post_code == "0632" or post_code == "0620" or post_code == "0630":
     adress = input("Please enter your adress: ")
-    phone_number = input("Please enter your phone number: ")
+    
     user_name = input("Please enter your name: ")
-    finished =  input("Is this order finished: ")
+    phone_number = input("Please enter your phone number: ")
+    while not phone_number.isdigit():
+      phone_number = input("Please enter your phone number: ")
+    if phone_number.isdigit():
+        while len(phone_number) < 9 or len(phone_number) > 11:
+          print("This phone number is invalid.")
+          phone_number = input("Please enter your phone number: ")
+        
+    
+          
+      
+      
+      
     #opens a file called customer_info.txt and appens to this file
     info = open("customer_info.txt","a")
     #writes users name in this file
     info.write(user_name)
     info.write("\n")
-    #writes users post code in this file
-    info.write(post_code)
-    info.write("\n")
     #writes users phone number in this file
     info.write(phone_number)
+    info.write("\n")
+    #writes users post code in this file
+    info.write(post_code)
     info.write("\n")
     #writes users adress in this file
     info.write(adress)
     info.write("\n")
     #closes this file
     info.close()
+    finished =  input("Is this order finished: ")
     if finished == "y" or finished == "yes":
       print("Ok")
       print_receipt()
@@ -96,6 +139,9 @@ def rangitoto_uber():
         choose_food()
       else:
         rangitoto_uber()
+    
+  else:
+    delete_info()
   
 
 
@@ -110,7 +156,26 @@ def delivery_option():
   else:
     delivery_option()
     
-
+def delete_item():
+  with open(r"ordered_items.txt")as fp:
+    #checks how much line are in the text file
+    x = len(fp.readlines())
+  with open('ordered_items.txt','r') as fr:
+   #reads file line by line
+   lines = fr.readlines()
+   #pointer for position
+   ptr = 1
+   #opens file in writing mode
+   with open('ordered_items.txt','w') as fw:
+     for line in lines:
+       #removes the third line from file
+       if ptr != x:
+         fw.write(line)
+       ptr +=1
+  
+  print("Sorry, we don't have that type of item.")
+  choose_food()
+  
 
 
 def choose_food():
@@ -171,8 +236,7 @@ def choose_food():
       print("ok")
       delivery_option()
   else:
-    print("Sorry, we don't have that type of item.")
-    choose_food()
+    delete_item()
 
 
 
