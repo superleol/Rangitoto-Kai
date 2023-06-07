@@ -24,13 +24,198 @@ def reset_programme():
   f2 = open("ordered_items.txt","w")
 
 def thank_you_msg():
-  print("Thank you")
+  f = 0
+  print("Thank you for your hardwork today and thank you for using this program.")
+  print("_______________________________________")
+  print("Below is the food orders today: ")
+  print("_________________________________________")
+  f = open("customer_info.txt","r")
+  print(f.read())
+
+  f2 = open("totals.txt")
+  print(f2.read())
+ 
+  
+
+
+  
 
 def clear_data():
   open('customer_info.txt', 'w').close()
   open('ordered_items.txt', 'w').close()
   thank_you_msg()
   main()
+
+def total():
+  file = open("ordered_items.txt","r")
+  data = file.read()
+  occurrences1 = data.count("Kawakawa spritzer")
+  occurrences2 = data.count("Pork and Puha slider")
+  occurrences3 = data.count("Pork and Watercress pie")
+  occurrences4 = data.count("Paua and Prawn dumplings")
+  occurrences5 = data.count("Kumara and Fennel salad")
+  occurrences6 = data.count("Kina canapes")
+  occurrences7 = data.count("Horopito Fish Collars")
+  occurrences8 = data.count("Kawakawa Mussels")
+  occurrences9 = data.count("Paua Porridge")
+
+  if occurrences1 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=",cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences1 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences1 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#--------------------------------------------------------------------------
+
+  elif occurrences2 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences2 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences2 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#-------------------------------------------------------------------------
+
+  elif occurrences3 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences3 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences3 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#---------------------------------------------------------------------
+
+  elif occurrences4 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences4 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences4 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#---------------------------------------------------------------------
+
+  elif occurrences5 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences5 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences5 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#---------------------------------------------------------------------
+
+  elif occurrences6 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences6 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences6 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#--------------------------------------------------------------------
+
+  elif occurrences7 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences7 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences7 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#---------------------------------------------------------------------
+
+  elif occurrences8 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences8 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences8 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+#----------------------------------------------------------------------
+
+  elif occurrences9 == 1:
+    file = open("totals.txt","a")
+    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
+    file.close()
+
+  elif occurrences9 == 2:
+    file = open("totals.txt","a")
+    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
+    file.close()
+
+  elif occurrences9 == 3:
+    file = open("totals.txt","a")
+    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
+    file.close()
+
+
+
+ 
+  
+
+
 
 def print_receipt():
   #opens a file called customer_info.txt
@@ -57,7 +242,7 @@ def print_receipt():
     main()
   elif cancel_option == "no" or cancel_option == "n":
     print("OK")
-    clear_data()
+    thank_you_msg()
   else:
     print_receipt()
 
@@ -191,6 +376,7 @@ def choose_food():
   text_file.write("\n")
   #closes the file
   text_file.close()
+  #total()
   with open(r"ordered_items.txt")as fp:
     #checks how much line are in the text file
     x = len(fp.readlines())
