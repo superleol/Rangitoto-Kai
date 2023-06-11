@@ -1,6 +1,8 @@
 import os
+
 cost_of_budget_menu_options = 6
 cost_of_premium_menu_options = 9
+
 
 def main():
   reset_programme()
@@ -17,11 +19,13 @@ def main():
 
   choose_food()
 
+
 def reset_programme():
-  os.remove("customer_info.txt")
-  os.remove("ordered_items.txt")
-  f = open("customer_info.txt","w")
-  f2 = open("ordered_items.txt","w")
+  # clears the customer info dictionary
+  customer_info.clear()
+  # clears the ordered items dictionary
+  ordered_items.clear()
+
 
 def thank_you_msg():
   f = 0
@@ -29,16 +33,15 @@ def thank_you_msg():
   print("_______________________________________")
   print("Below is the food orders today: ")
   print("_________________________________________")
-  f = open("customer_info.txt","r")
-  print(f.read())
+  # prints the customer info dictionary
+  print(customer_info)
+  # prints the ordered items dictionary
+  print(ordered_items)
+  totals()
 
-  f2 = open("totals.txt")
-  print(f2.read())
  
-  
 
 
-  
 
 def clear_data():
   open('customer_info.txt', 'w').close()
@@ -46,195 +49,12 @@ def clear_data():
   thank_you_msg()
   main()
 
-def total():
-  file = open("ordered_items.txt","r")
-  data = file.read()
-  occurrences1 = data.count("Kawakawa spritzer")
-  occurrences2 = data.count("Pork and Puha slider")
-  occurrences3 = data.count("Pork and Watercress pie")
-  occurrences4 = data.count("Paua and Prawn dumplings")
-  occurrences5 = data.count("Kumara and Fennel salad")
-  occurrences6 = data.count("Kina canapes")
-  occurrences7 = data.count("Horopito Fish Collars")
-  occurrences8 = data.count("Kawakawa Mussels")
-  occurrences9 = data.count("Paua Porridge")
-
-  if occurrences1 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=",cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences1 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences1 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#--------------------------------------------------------------------------
-
-  elif occurrences2 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences2 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences2 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#-------------------------------------------------------------------------
-
-  elif occurrences3 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences3 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences3 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#---------------------------------------------------------------------
-
-  elif occurrences4 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences4 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences4 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#---------------------------------------------------------------------
-
-  elif occurrences5 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences5 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences5 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#---------------------------------------------------------------------
-
-  elif occurrences6 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences6 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences6 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#--------------------------------------------------------------------
-
-  elif occurrences7 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences7 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences7 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#---------------------------------------------------------------------
-
-  elif occurrences8 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences8 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences8 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-#----------------------------------------------------------------------
-
-  elif occurrences9 == 1:
-    file = open("totals.txt","a")
-    file.write("1x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 1)
-    file.close()
-
-  elif occurrences9 == 2:
-    file = open("totals.txt","a")
-    file.write("2x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 2)
-    file.close()
-
-  elif occurrences9 == 3:
-    file = open("totals.txt","a")
-    file.write("3x Kawakawa spritzer @ ",cost_of_budget_menu_options, "=", cost_of_budget_menu_options * 3)
-    file.close()
-
-
-
- 
-  
-
 
 
 def print_receipt():
-  #opens a file called customer_info.txt
-  f = open("customer_info.txt")
-  #reads content inside the file
-  content = f.read()
-  #prints out the content inside the file
-  print(content)
-  #closes the file
-  f.close()
 
-  #opens a file called ordered_items.txt
-  f2 = open("ordered_items.txt")
-  #reads content inside the file
-  content2 = f2.read()
-  #prints out the content inside the file
-  print(content2)
-  #closes the file
-  f.close()
+  print(customer_info)
+  print(ordered_items)
 
   cancel_option = input("Do you want to cancel this order: ")
   if cancel_option == "yes" or cancel_option == "y":
@@ -242,9 +62,15 @@ def print_receipt():
     main()
   elif cancel_option == "no" or cancel_option == "n":
     print("OK")
-    thank_you_msg()
+    finished_day = input("Has your work day finished: ")
+    if finished_day == 'n' or finished_day == 'no':
+     main()
+    elif finished_day == 'y' or finished_day == 'yes':
+      thank_you_msg()
   else:
     print_receipt()
+
+
 
 
 def order_pickup():
@@ -297,23 +123,15 @@ def rangitoto_uber():
           
       
       
-      
-    #opens a file called customer_info.txt and appens to this file
-    info = open("customer_info.txt","a")
-    #writes users name in this file
-    info.write(user_name)
-    info.write("\n")
-    #writes users phone number in this file
-    info.write(phone_number)
-    info.write("\n")
-    #writes users post code in this file
-    info.write(post_code)
-    info.write("\n")
-    #writes users adress in this file
-    info.write(adress)
-    info.write("\n")
-    #closes this file
-    info.close()
+    customer_info.update({
+      "User name: " : user_name, 
+      "Phone number: " : phone_number,
+      "Post code: " : post_code,
+      "Adress: " : adress
+    })
+    
+
+
     finished =  input("Is this order finished: ")
     if finished == "y" or finished == "yes":
       print("Ok")
@@ -327,6 +145,12 @@ def rangitoto_uber():
     
   else:
     delete_info()
+
+  return customer_info
+
+
+    
+
   
 
 
@@ -340,26 +164,6 @@ def delivery_option():
     rangitoto_uber()
   else:
     delivery_option()
-    
-def delete_item():
-  with open(r"ordered_items.txt")as fp:
-    #checks how much line are in the text file
-    x = len(fp.readlines())
-  with open('ordered_items.txt','r') as fr:
-   #reads file line by line
-   lines = fr.readlines()
-   #pointer for position
-   ptr = 1
-   #opens file in writing mode
-   with open('ordered_items.txt','w') as fw:
-     for line in lines:
-       #removes the third line from file
-       if ptr != x:
-         fw.write(line)
-       ptr +=1
-  
-  print("Sorry, we don't have that type of item.")
-  choose_food()
   
 
 
@@ -369,52 +173,62 @@ def choose_food():
   print("In the premium budget menu we have", premium_menu_options)
 
   input_item = input("Please choose the item that you would like to order: ")
-  #opens a file called ordered_items.txt and appends to it
-  text_file = open("ordered_items.txt", "a")
-  #adds to the file
-  text_file.write(input_item)
-  text_file.write("\n")
-  #closes the file
-  text_file.close()
-  #total()
-  with open(r"ordered_items.txt")as fp:
-    #checks how much line are in the text file
-    x = len(fp.readlines())
-    print('Total lines:', x)
+  quantity = input("Please input the quantity that you would like: ")
+
+  # updates the dictionary
+  ordered_items.update({
+    input_item: quantity,
+  })
+ 
+
+  print(ordered_items)
+
+
+ 
+
+
+ 
+
   
   
 
 
   if input_item in budget_menu_options:
-    print("Ok")
+    total_cost.update({
+      input_item : quantity * cost_of_budget_menu_options
+    })
+    print(total_cost)
     order_another_item = input("Do you want to order another item: ")
-    if order_another_item == "yes" or "y":
-      #checks if items in file is greater than 3
+    if order_another_item == "yes" or order_another_item == "y":
+      #checks if items in the dictionary is greater than 3
       if x < 3:
         choose_food()
-      #if the items in the file is greater than 3 then the user cannot order anything more
+      #if the items in the dictionary is greater than 3 then the user cannot order anything more
       elif x > 3 or x == 3:
         print("Sorry you cannot order more than 3 items.")
         delivery_option()
-    elif order_another_item == "no" or "n":
+    elif order_another_item == "no" or order_another_item == "n":
       delivery_option()
     else:
       choose_food()
-      #checks if items in file is greater than 3
+      #checks if items in dictionary is greater than 3
       if x < 3:
         delivery_option()
-      #if the items in the file is greater than 3 then the user cannot order anything more
+      #if the items in the dictionsty is greater than 3 then the user cannot order anything more
       elif x > 3 or x == 3:
         print("Sorry you cannot order more than 3 items.")
         delivery_option()
   elif input_item in premium_menu_options:
-    print("Ok")
+    total_cost.update({
+      input_item : quantity * cost_of_premium_menu_options
+    })
+    print(total_cost)
     order_another_item = input("Do you want to order another item: ")
     if order_another_item == "yes" or order_another_item == "y":
-      #checks if items in file is greater than 3
+      #checks if items in dictionary is greater than 3
       if x < 3: 
        choose_food()
-      #if the items in the file is greater than 3 then the user cannot order anything more
+      #if the items in the dictionary is greater than 3 then the user cannot order anything more
       elif x > 3 or x == 3:
         print("Sorry you cannot order more than 3 items.")
         delivery_option()
@@ -422,11 +236,24 @@ def choose_food():
       print("ok")
       delivery_option()
   else:
-    delete_item()
+    ordered_items.pop(input_item, quantity)
+    print("Sorry, that item is not avaliable.")
+    choose_food()
+
+  
 
 
 
-        
+
+
+
+
+# creates an empty dictionary for ordered items  
+ordered_items = {}
+# creates an empty dictionary for customer info
+customer_info={}
+# creates an empty dictionary for total cost of items
+total_cost={}
 
 
 budget_menu_options = ["kawakawa spritzer", "Pork and Puha slider", "Pork and Watercress pie", "Paua and Prawn dumplings", "Kumara and Fennel salad", "Kina canapes"]
