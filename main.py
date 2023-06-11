@@ -25,6 +25,8 @@ def reset_programme():
   customer_info.clear()
   # clears the ordered items dictionary
   ordered_items.clear()
+  # clears the total cost dictionary
+  total_cost.clear()
 
 
 def thank_you_msg():
@@ -37,15 +39,19 @@ def thank_you_msg():
   print(customer_info)
   # prints the ordered items dictionary
   print(ordered_items)
-  totals()
+  print(total_cost)
 
  
 
 
 
 def clear_data():
-  open('customer_info.txt', 'w').close()
-  open('ordered_items.txt', 'w').close()
+  # clears the customer info dictionary
+  customer_info.clear()
+  # clears the ordered items dictionary
+  ordered_items.clear()
+  # clears the total cost dictionary
+  total_cost.clear()
   thank_you_msg()
   main()
 
@@ -168,6 +174,7 @@ def delivery_option():
 
 
 def choose_food():
+  
   print("We have a budget menu and a premium menu.")
   print("In the budget menu we have", budget_menu_options)
   print("In the premium budget menu we have", premium_menu_options)
@@ -183,19 +190,13 @@ def choose_food():
 
   print(ordered_items)
 
-
+  x = len(ordered_items)
+  print(x)
  
-
-
- 
-
-  
-  
-
 
   if input_item in budget_menu_options:
     total_cost.update({
-      input_item : quantity * cost_of_budget_menu_options
+      input_item : int(quantity) * cost_of_budget_menu_options
     })
     print(total_cost)
     order_another_item = input("Do you want to order another item: ")
@@ -206,21 +207,41 @@ def choose_food():
       #if the items in the dictionary is greater than 3 then the user cannot order anything more
       elif x > 3 or x == 3:
         print("Sorry you cannot order more than 3 items.")
+        a = total_cost.get(input_item)
+        gst.update({
+          "Total incl GST": int(a) + int(a) + int(a)
+        })
+        print(gst)
         delivery_option()
     elif order_another_item == "no" or order_another_item == "n":
+      a = total_cost.get(input_item)
+      gst.update({
+          "Total incl GST": int(a) + int(a) + int(a)
+        })
+      print(gst)
       delivery_option()
     else:
       choose_food()
       #checks if items in dictionary is greater than 3
       if x < 3:
+        a = total_cost.get(input_item)
+        gst.update({
+          "Total incl GST": int(a) + int(a) + int(a)
+        })
+        print(gst)
         delivery_option()
       #if the items in the dictionsty is greater than 3 then the user cannot order anything more
       elif x > 3 or x == 3:
         print("Sorry you cannot order more than 3 items.")
+        a = total_cost.get(input_item)
+        gst.update({
+          "Total incl GST": int(a) + int(a) + int(a)
+        })
+        print(gst)
         delivery_option()
   elif input_item in premium_menu_options:
     total_cost.update({
-      input_item : quantity * cost_of_premium_menu_options
+      input_item : int(quantity) * cost_of_premium_menu_options
     })
     print(total_cost)
     order_another_item = input("Do you want to order another item: ")
@@ -231,9 +252,19 @@ def choose_food():
       #if the items in the dictionary is greater than 3 then the user cannot order anything more
       elif x > 3 or x == 3:
         print("Sorry you cannot order more than 3 items.")
+        a = total_cost.get(input_item)
+        gst.update({
+          "Total incl GST": int(a) + int(a) + int(a)
+        })
+        print(gst)
         delivery_option()
     elif order_another_item == "n" or order_another_item == "no":
       print("ok")
+      a = total_cost.get(input_item)
+      gst.update({
+          "Total incl GST": int(a) + int(a) + int(a)
+        })
+      print(gst)
       delivery_option()
   else:
     ordered_items.pop(input_item, quantity)
@@ -254,7 +285,8 @@ ordered_items = {}
 customer_info={}
 # creates an empty dictionary for total cost of items
 total_cost={}
-
+# creates an empty dictionary for gst
+gst = {}
 
 budget_menu_options = ["kawakawa spritzer", "Pork and Puha slider", "Pork and Watercress pie", "Paua and Prawn dumplings", "Kumara and Fennel salad", "Kina canapes"]
 
