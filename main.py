@@ -1,6 +1,15 @@
 """This is an ordering system called rangitoto kai."""
-cost_of_budget_menu_options = 6
-cost_of_premium_menu_options = 9
+# This is the constants section.
+COST_OF_BUDGET_MENU_OPTIONS = 6
+COST_OF_PREMIUM_MENU_OPTIONS = 9
+
+BUDGET_MENU_OPTIONS = ["kawakawa spritzer", "Pork and Puha slider", "Pork and Watercress pie", "Paua and Prawn dumplings", "Kumara and Fennel salad", "Kina canapes"]
+
+PREMIUM_MENU_OPTIONS = ["Horopito Fish Collars", "Kawakawa Mussels", "Paua Porridge"]
+
+TOTAl_ITEMS_THAT_CAN_BE_ORDERED = 3
+
+# Constants section ends.
 
 
 def main():
@@ -59,13 +68,13 @@ def print_receipt():
     print(customer_info)
     print(ordered_items)
 
-    cancel_option = input("Do you want to cancel this order: ")
+    cancel_option = input("Do you want to cancel this order. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
     if cancel_option == "yes" or cancel_option == "y":
         print("Ok, sure")
         main()
     elif cancel_option == "no" or cancel_option == "n":
         print("OK")
-        finished_day = input("Has your work day finished: ")
+        finished_day = input("Has your work day finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if finished_day == 'n' or finished_day == 'no':
             main()
         elif finished_day == 'y' or finished_day == 'yes':
@@ -76,7 +85,7 @@ def print_receipt():
 
 def order_pickup():
     """This is the pickup item function."""
-    order_finished = input("Is this order finished: ")
+    order_finished = input("Is this order finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
     if order_finished == "yes" or order_finished == "y":
         print_receipt()
     elif order_finished == "no" or "n":
@@ -109,7 +118,7 @@ def delete_info():
 
 def rangitoto_uber():
     """This is the function for the delivery option."""
-    post_code = input("Please enter your post code: ")
+    post_code = input("Please enter your post code. The post codes that we can deliver too are 0620, 0630, and 0632: ")
     # checks if post code entered is 0632, 0620 or 0630
     if post_code == "0632" or post_code == "0620" or post_code == "0630":
         adress = input("Please enter your adress: ")
@@ -130,12 +139,12 @@ def rangitoto_uber():
     "Adress: ": adress
     })
 
-    finished =  input("Is this order finished: ")
+    finished =  input("Is this order finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
     if finished == "y" or finished == "yes":
         print("Ok")
         print_receipt()
     elif finished == "n" or finished == "no":
-        add_item = input("Would you like to add more items: ")
+        add_item = input("Would you like to add more items. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if add_item == "y" or add_item == "yes":
             choose_food()
         else:
@@ -150,10 +159,10 @@ def rangitoto_uber():
 def delivery_option():
     """This function asks the user wheather they want to have their item delivered 
     or pickup their item."""
-    uber_input = input("Is this order for pickup or rangitoto uber delivery: ")
+    uber_input = input("Is this order for pickup or rangitoto uber delivery. Please enter 'pickup' for pickup and 'delivery' for our rangitoto uber delivery: ")
     if uber_input == "pickup":
         order_pickup()
-    elif uber_input == "rangitoto uber delivery":
+    elif uber_input == "delivery":
         print("Ok")
         rangitoto_uber()
     else:
@@ -163,11 +172,15 @@ def delivery_option():
 def choose_food():
     """This is the choose food function."""
     print("We have a budget menu and a premium menu.")
-    print("In the budget menu we have", budget_menu_options)
-    print("In the premium budget menu we have", premium_menu_options)
+    print("In the budget menu we have", BUDGET_MENU_OPTIONS)
+    print("In the premium budget menu we have", PREMIUM_MENU_OPTIONS)
 
     input_item = input("Please choose the item that you would like to order: ")
     quantity = input("Please input the quantity that you would like: ")
+    while not quantity.isdigit():
+        quantity = input("Please input the quantity that you would like: ")
+
+    
 
     # updates the dictionary
     ordered_items.update({
@@ -179,19 +192,21 @@ def choose_food():
     x = len(ordered_items)
     print(x)
 
-
-    if input_item in budget_menu_options:
+  
+    if input_item in BUDGET_MENU_OPTIONS:
         total_cost.update({
-        input_item: int(quantity) * cost_of_budget_menu_options
+        input_item: int(quantity) * COST_OF_PREMIUM_MENU_OPTIONS
         })
         print(total_cost)
-        order_another_item = input("Do you want to order another item: ")
+        order_another_item = input("Do you want to order another item. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
+        while order_another_item != "yes" or order_another_item != "y" or order_another_item != "no" or order_another_item != "n":
+          order_another_item = input("Do you want to order another item.Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if order_another_item == "yes" or order_another_item == "y":
             # checks if items in the dictionary is greater than 3
-            if x < 3:
+            if x < TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
                 choose_food()
             # if the items in the dictionary is greater than 3 then the user cannot order anything more
-            elif x > 3 or x == 3:
+            elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
                 print("Sorry you cannot order more than 3 items.")
                 a = total_cost.get(input_item)
                 gst.update({
@@ -206,15 +221,13 @@ def choose_food():
             })
             print(gst)
             delivery_option()
-        else:
-            choose_food()
         # checks if items in dictionary is greater than 3
-        if x < 3:
+        if x < TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
              a = total_cost.get(input_item)
              print(gst)
              delivery_option()
              # if the items in the dictionsty is greater than 3 then the user cannot order anything more
-        elif x > 3 or x == 3:
+        elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
              print("Sorry you cannot order more than 3 items.")
              a = total_cost.get(input_item)
              gst.update({
@@ -222,18 +235,20 @@ def choose_food():
              })
              print(gst)
              delivery_option()
-    elif input_item in premium_menu_options:
+    elif input_item in PREMIUM_MENU_OPTIONS:
         total_cost.update({
-        input_item: int(quantity) * cost_of_premium_menu_options
+        input_item: int(quantity) * COST_OF_PREMIUM_MENU_OPTIONS
         })
         print(total_cost)
-        order_another_item = input("Do you want to order another item: ")
+        order_another_item = input("Do you want to order another item. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
+        while order_another_item != "yes" or order_another_item != "y" or order_another_item != "no" or order_another_item != "n":
+          order_another_item = input("Do you want to order another item. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if order_another_item == "yes" or order_another_item == "y":
             # checks if items in dictionary is greater than 3
-            if x < 3:
+            if x < TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
                 choose_food()
                 # if the items in the dictionary is greater than 3 then the user cannot order anything more
-            elif x > 3 or x == 3:
+            elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
                 print("Sorry you cannot order more than 3 items.")
                 a = total_cost.get(input_item)
                 gst.update({
@@ -249,10 +264,10 @@ def choose_food():
             })
             print(gst)
             delivery_option()
-        else:
-            ordered_items.pop(input_item, quantity)
-            print("Sorry, that item is not avaliable.")
-            choose_food()
+    else:
+        ordered_items.pop(input_item, quantity)
+        print("Sorry, that item is not avaliable.")
+        choose_food()
 
 
 # creates an empty dictionary for ordered items
@@ -264,8 +279,6 @@ total_cost = {}
 # creates an empty dictionary for gst
 gst = {}
 
-budget_menu_options = ["kawakawa spritzer", "Pork and Puha slider", "Pork and Watercress pie", "Paua and Prawn dumplings", "Kumara and Fennel salad", "Kina canapes"]
 
-premium_menu_options = ["Horopito Fish Collars", "Kawakawa Mussels", "Paua Porridge"]
 
 main()
