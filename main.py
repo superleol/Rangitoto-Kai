@@ -51,6 +51,7 @@ def thank_you_msg():
     print(ordered_items)
     print(total_cost)
     print(gst)
+    main()
 
 
 def clear_data():
@@ -209,11 +210,13 @@ def choose_food():
             # if the items in the dictionary is greater than 3 then the user cannot order anything more
             elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
               gst.update({
-              "Total incl GST": sum(total_cost.values()
-                                 )})
+              "Total incl GST": sum(total_cost.values()),
+              "Total excl GST": int(sum(total_cost.values())/1.15
+                                   )})
         elif order_another_item == "no" or order_another_item == "n":
               gst.update({
-              "Total incl GST": sum(total_cost.values()
+              "Total incl GST": sum(total_cost.values()),
+              "Total excl GST": int(sum(total_cost.values())/1.15
                                    )})
         # checks if items in dictionary is greater than 3
         if x < TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
@@ -224,7 +227,8 @@ def choose_food():
         elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
              print("Sorry you cannot order more than 3 items.")
              gst.update({
-              "Total incl GST": sum(total_cost.values()
+             "Total incl GST": sum(total_cost.values()),
+             "Total excl GST": int(sum(total_cost.values())/1.15
                                    )})
              delivery_option()
     elif input_item in PREMIUM_MENU_OPTIONS:
@@ -241,14 +245,16 @@ def choose_food():
             elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
                 print("Sorry you cannot order more than 3 items.")
                 gst.update({
-                "Total incl GST": sum(total_cost.values()
-                                     )})
+                "Total incl GST": sum(total_cost.values()),
+                "Total excl GST": int(sum(total_cost.values())/1.15
+                                   )})
                 delivery_option()
         elif order_another_item == "n" or order_another_item == "no":
             print("ok")
             gst.update({
-            "Total incl GST": sum(total_cost.values()
-                                 )})
+            "Total incl GST": sum(total_cost.values()),
+            "Total excl GST": int(sum(total_cost.values())/1.15
+                                   )})
             delivery_option()
     else:
         ordered_items.pop(input_item, quantity)
