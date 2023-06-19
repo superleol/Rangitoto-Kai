@@ -45,12 +45,15 @@ def thank_you_msg():
     print("_______________________________________")
     print("Below is the food orders today: ")
     print("_________________________________________")
-    # prints the customer info dictionary
-    print(customer_info)
-    # prints the ordered items dictionary
-    print(ordered_items)
-    print(total_cost)
-    print(gst)
+    print("Name: ", customer_info.get("User name: "),"\n",
+          "Phone number: ", customer_info.get("Phone number: "),"\n",
+          "Post code: ", customer_info.get("Post code: "),"\n",
+          "Adress: ",customer_info.get("Adress: "))
+    print("The item that you ordered is: ", ordered_items.get("Item you ordered: "), "\n",
+          "Quantity: ", ordered_items.get("Quantity: "))
+    print("Your total for incl GST is $", gst.get("Total incl GST"),"\n",
+          "Your total for excl GST is $",gst.get("Total excl GST"))
+  
     main()
 
 
@@ -68,9 +71,14 @@ def clear_data():
 
 def print_receipt():
     """This is the print receipt function."""
-    print(customer_info)
-    print(ordered_items)
-    print(gst)
+    print("Name: ", customer_info.get("User name: "),"\n",
+          "Phone number: ", customer_info.get("Phone number: "),"\n",
+          "Post code: ", customer_info.get("Post code: "),"\n",
+          "Adress: ",customer_info.get("Adress: "))
+    print("The item that you ordered is: ", ordered_items.get("Item you ordered: "), "\n",
+          "Quantity: ", ordered_items.get("Quantity: "))
+    print("Your total for incl GST is $", gst.get("Total incl GST"),"\n",
+          "Your total for excl GST is $",gst.get("Total excl GST"))
 
     cancel_option = input("Do you want to cancel this order. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
     if cancel_option == "yes" or cancel_option == "y":
@@ -98,43 +106,22 @@ def order_pickup():
         order_pickup()
 
 
-def delete_info():
-    """This is the delete info function."""
-    with open(r"ordered_items.txt")as fp:
-        # checks how much line are in the text file
-        x = len(fp.readlines())
-
-    with open('ordered_items.txt' , 'r') as fr:
-        # reads the file line by line
-        lines = fr.readlines()
-        # pointer for position
-        ptr = 1
-        # opening file in writing mode
-        with open('ordered_items.txt' , 'w') as fw:
-            for line in lines:
-                # removes the 3rd line
-                if ptr != x:
-                    fw.write(line)
-                    ptr += 1
-                    print("Sorry, we cannot deliver to that postcode.")
-                    rangitoto_uber()
-
-
 def rangitoto_uber():
     """This is the function for the delivery option."""
     post_code = input("Please enter your post code. The post codes that we can deliver too are 0620, 0630, and 0632: ")
     # checks if post code entered is 0632, 0620 or 0630
-    if post_code == "0632" or post_code == "0620" or post_code == "0630":
-        adress = input("Please enter your adress: ")
+    while post_code != "0632" and post_code != "0620" and  post_code != "0630":
+      post_code = input("Please enter your post code. The post codes that we can deliver too are 0620, 0630, and 0632: ")
+    adress = input("Please enter your adress: ")
 
-        user_name = input("Please enter your name: ")
+    user_name = input("Please enter your name: ")
+    phone_number = input("Please enter your phone number: ")
+    while not phone_number.isdigit():
         phone_number = input("Please enter your phone number: ")
-        while not phone_number.isdigit():
-            phone_number = input("Please enter your phone number: ")
-            if phone_number.isdigit():
-                while len(phone_number) < 9 or len(phone_number) > 11:
-                    print("This phone number is invalid.")
-                    phone_number = input("Please enter your phone number: ")
+        if phone_number.isdigit():
+            while len(phone_number) < 9 or len(phone_number) > 11:
+                print("This phone number is invalid.")
+                phone_number = input("Please enter your phone number: ")
 
     customer_info.update({
     "User name: ": user_name,
@@ -144,18 +131,20 @@ def rangitoto_uber():
     })
 
     finished =  input("Is this order finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
-    if finished == "y" or finished == "yes":
-        print("Ok")
-        print_receipt()
-    elif finished == "n" or finished == "no":
+    while finished != "y" and  finished != "yes":
+      if finished == "n" or finished == "no":
         add_item = input("Would you like to add more items. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if add_item == "y" or add_item == "yes":
             choose_food()
         else:
             rangitoto_uber()
+      finished =  input("Is this order finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
+    print("Ok")
+    print_receipt()
+    
 
-    else:
-        delete_info()
+
+
 
     return customer_info
 
@@ -188,20 +177,23 @@ def choose_food():
 
     # updates the dictionary
     ordered_items.update({
-    input_item: quantity,
+    "Item you ordered: ": input_item,
+    "Quantity: ": quantity
     })
-
-    print(ordered_items)
 
     x = len(ordered_items)
     print(x)
 
+    print("You ordered", input_item, "and your quantity that you ordered is",quantity)
+
+    
+
   
     if input_item in BUDGET_MENU_OPTIONS:
         total_cost.update({
-        input_item: int(quantity) * COST_OF_PREMIUM_MENU_OPTIONS
+        "Total cost of item: ": int(quantity) * COST_OF_PREMIUM_MENU_OPTIONS
         })
-        print(total_cost)
+        print("The total cost of your ordered item is $", total_cost["Total cost of item: "])
         order_another_item = input("Do you want to order another item. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if order_another_item == "yes" or order_another_item == "y":
             # checks if items in the dictionary is greater than 3
@@ -221,7 +213,8 @@ def choose_food():
         # checks if items in dictionary is greater than 3
         if x < TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
              a = total_cost.get(input_item)
-             print(gst)
+             print("Total incl GST $", gst.get("Total incl GST"),"\n",
+                   "Total excl GST ", gst.get("Total excl GST"))
              delivery_option()
              # if the items in the dictionsty is greater than 3 then the user cannot order anything more
         elif x > TOTAl_ITEMS_THAT_CAN_BE_ORDERED or x == TOTAl_ITEMS_THAT_CAN_BE_ORDERED:
@@ -233,9 +226,9 @@ def choose_food():
              delivery_option()
     elif input_item in PREMIUM_MENU_OPTIONS:
         total_cost.update({
-        input_item: int(quantity) * COST_OF_PREMIUM_MENU_OPTIONS
+        "Total cost of item: ": int(quantity) * COST_OF_PREMIUM_MENU_OPTIONS
         })
-        print(total_cost)
+        print("The total cost of your ordered item is $", total_cost["Total cost of item: "])
         order_another_item = input("Do you want to order another item. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
         if order_another_item == "yes" or order_another_item == "y":
             # checks if items in dictionary is greater than 3
