@@ -6,16 +6,15 @@ DELIVERY_COST = 5
 
 BUDGET_MENU_OPTIONS = [
   "Kawakawa spritzer", "Pork and Puha slider", "Pork and Watercress pie",
-  "Paua and Prawn dumplings", "Kumara and Fennel salad", "Kina canapes"
+  "Paua and Prawn dumplings", "Kumara and Fennel salad", "Kina canapes", "k", "c"
 ]
 
 PREMIUM_MENU_OPTIONS = [
-  "Horopito Fish Collars", "Kawakawa Mussels", "Paua Porridge"
+  "Horopito Fish Collars", "Kawakawa Mussels", "Paua Porridge", "a"
 ]
 
 TOTAl_ITEMS_THAT_CAN_BE_ORDERED = 3
 
-delivery_charge = 5
 
 # Constants section ends.
 
@@ -24,41 +23,37 @@ def main():
   """This function is for my main loop of my programme"""
   print("Welcome to Rangitoto Kai.")
 
-  create_order()
-
-  finished_day = ''
-  while finished_day != 'y' and finished_day != "yes" and finished_day != 'n' and finished_day != 'no':
-    finished_day = input(
-      "Has your work day finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': "
-    )
+  finished_day = 'n'
 
   while finished_day == 'n' or finished_day == 'no':
     create_order()
-
+    finished_day = ''
+    while finished_day != 'y' and finished_day != "yes" and finished_day != 'n' and finished_day != 'no':
+      finished_day = input("Has your work day finished. Please enter 'yes' or 'no' you can also enter 'y' or 'n': ")
+      
   # end of day, print summary
   print_end_of_day_summary()
 
 
 def create_order():
-  # reset order data at beginning
-  reset_order()
+  # creates an empty dictionary for ordered items
+  ordered_items = {}
+  # creates an empty dictionary for customer info
+  customer_info = {}
+  # creates an empty dictionary for gst
+  gst = {}
+  
   # asks the user to input their name
-  name = input("Please enter your name: ")
+  name = ''
   while not name.strip():
-    name = input("Please enter your name: ")
+    name = input("\n\nPlease enter your name: ")
 
   customer_info.update({"User name: ": name})
   
   # prints hello, then users name
   print("Hello", name.strip())
 
-  choose_food()
-  delivery = delivery_option()
-  if delivery == "delivery":
-    rangitoto_uber()
-    customer_info.update({"Delivery type: ": "Delivery"})
-  else:
-    customer_info.update({"Delivery type: ": "Pick up"})
+  choose_food(ordered_items, gst, customer_info)
 
   # check if user wants to cancel the order
   cancel_option = ''
@@ -71,33 +66,34 @@ def create_order():
     print("Ok, sure, the current order will be removed.")
   else:
     print_receipt(customer_info, ordered_items, gst)
-    all_orders.append([ordered_items])
-    all_customers.append([customer_info])
-    all_gst.append([gst])
-
-
-def reset_order():
-  """This function resets the programme."""
-  # clears the customer info dictionary
-  customer_info.clear()
-  # clears the ordered items dictionary
-  ordered_items.clear()
-  # clears the gst dictionary
-  gst.clear()
+    all_orders.append(ordered_items)
+    all_customers.append(customer_info)
+    all_gst.append(gst)
 
 
 def print_end_of_day_summary():
   """This is the function at the end of the programme that prints out all the 
     information for the day."""
+  
   print(
-    "Thank you for your hardwork today and thank you for using this program.")
+    "\n\nThank you for your hardwork today and thank you for using this program.")
   print("_________________________________________")
   print("Below is the food orders today: ")
   print("_________________________________________")
+  
   index = 0
+  total_incl_gst = 0
+  total_excl_gst = 0
   while index < len(all_customers):
+      print("\nOrder ", index+1, ":")
       print_receipt(all_customers[index], all_orders[index], all_gst[index])
+      total_incl_gst = total_incl_gst + all_gst[index].get("Total incl GST")
+      total_excl_gst = total_excl_gst + all_gst[index].get("Total excl GST")
       index += 1
+
+  print("Total orders:", index)
+  print("Day total incl GST: $", total_incl_gst)
+  print("Day total excl GST: $", total_excl_gst)
   print("_________________________________________")
 
 
@@ -108,9 +104,9 @@ def print_receipt(cur_customer_info, cur_ordered_items, cur_gst):
   print("Name: ", cur_customer_info.get("User name: "))
   print("Order type: ", cur_customer_info.get("Delivery type: "))
   if cur_customer_info.get("Delivery type: ") == "Delivery":
-      print("Phone number: ", cur_customer_info.get("Phone number: "), "\n", 
-        "Post code: ", cur_customer_info.get("Post code: "), "\n", 
-        "Adress: ",cur_customer_info.get("Adress: "))
+      print("Phone number: ", cur_customer_info.get("Phone number: "))
+      print("Post code: ", cur_customer_info.get("Post code: ")) 
+      print("Adress: ",cur_customer_info.get("Adress: "))
 
   print("Item ordered: ")
   for key, value in cur_ordered_items.items():
@@ -119,14 +115,11 @@ def print_receipt(cur_customer_info, cur_ordered_items, cur_gst):
       elif key in PREMIUM_MENU_OPTIONS:
           print(value, " x ", key, " @ $", COST_OF_PREMIUM_MENU_OPTIONS, " = $", int(value) * COST_OF_PREMIUM_MENU_OPTIONS)
 
-  if cur_customer_info.get("Delivery type: ") == "Delivery":
-      print("Delivery $", DELIVERY_COST)
-      additional_cost = DELIVERY_COST
-  print("Your total for incl GST is $", int(cur_gst.get("Total incl GST")) + additional_cost)
-  print("Your total for excl GST is $", int(cur_gst.get("Total excl GST")) + additional_cost)
+  print("Your total for incl GST is $", cur_gst.get("Total incl GST"))
+  print("Your total for excl GST is $", cur_gst.get("Total excl GST"))
+  print("\n")
 
-
-def rangitoto_uber():
+def rangitoto_uber(customer_info):
   """This is the function for the delivery option."""
   post_code = input(
     "Please enter your post code. The post codes that we can deliver too are 0620, 0630, and 0632: "
@@ -141,10 +134,10 @@ def rangitoto_uber():
   phone_number = input("Please enter your phone number: ")
   while not phone_number.isdigit():
     phone_number = input("Please enter your phone number: ")
-    if phone_number.isdigit():
-      while len(phone_number) < 9 or len(phone_number) > 11:
-        print("This phone number is invalid.")
-        phone_number = input("Please enter your phone number: ")
+  if phone_number.isdigit():
+    while len(phone_number) < 9 or len(phone_number) > 11:
+      print("This phone number is invalid.")
+      phone_number = input("Please enter your phone number: ")
 
   customer_info.update({
     "Phone number: ": phone_number,
@@ -164,7 +157,7 @@ def delivery_option():
   return uber_input
 
 
-def choose_food():
+def choose_food(ordered_items, gst, customer_info):
   """This is the choose food function."""
   cost_of_items = []
   # creates an empty dictionary for total cost of items
@@ -207,8 +200,8 @@ def choose_food():
 
       print("The total cost of your ordered item is $", total_cost["Total cost of item: "])
       gst.update({
-        "Total incl GST": sum(cost_of_items),
-        "Total excl GST": int(sum(cost_of_items) / 1.15)
+        "Total incl GST": round(sum(cost_of_items), 2),
+        "Total excl GST": round((sum(cost_of_items) / 1.15), 2)
       })
       print("Your total for incl GST is $", gst.get("Total incl GST"))
       print("Your total for excl GST is $", gst.get("Total excl GST"))
@@ -222,15 +215,15 @@ def choose_food():
       elif len(ordered_items) == 3:
           print("Sorry you cannot order more than 3 items.")
         
-
-
-
-# creates an empty dictionary for ordered items
-ordered_items = {}
-# creates an empty dictionary for customer info
-customer_info = {}
-# creates an empty dictionary for gst
-gst = {}
+  delivery = delivery_option()
+  if delivery == "delivery":
+    rangitoto_uber(customer_info)
+    customer_info.update({"Delivery type: ": "Delivery"})
+    gst.update({"Total incl GST": float(gst.get("Total incl GST")) + 5})
+    gst.update({"Total excl GST": float(gst.get("Total excl GST")) + 4.35})
+  else:
+    customer_info.update({"Delivery type: ": "Pick up"})
+  
 # creates a list for all of the orders
 all_orders = []
 # creates a list for order today
